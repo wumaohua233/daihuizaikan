@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>待会再看 — 小红书/抖音/YouTube/X/TikTok/Instagram 收藏点赞同步</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --red: #FF2442; --ink: #1a1a1a; --gray: #6b6b6b; --line: #eee; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--ink); line-height: 1.6; background: #fff; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+  a { color: inherit; }
+
+  /* Hero */
+  .hero { background: linear-gradient(160deg, #FFF1EC 0%, #FFE0D6 100%); padding: 64px 0 56px; text-align: center; }
+  .logo { font-size: 46px; }
+  h1 { font-size: 40px; font-weight: 800; margin: 12px 0 10px; letter-spacing: 1px; }
+  .sub { font-size: 17px; color: var(--gray); max-width: 520px; margin: 0 auto 6px; }
+  .sub em { font-style: normal; color: var(--red); font-weight: 600; }
+  .dl { display: inline-flex; align-items: center; gap: 8px; margin-top: 26px; background: var(--red); color: #fff; font-size: 17px; font-weight: 600; padding: 14px 30px; border-radius: 12px; text-decoration: none; box-shadow: 0 12px 28px -8px rgba(255,36,66,.5); transition: transform .12s; }
+  .dl:hover { transform: translateY(-2px); }
+  .dl-note { display: block; margin-top: 12px; font-size: 13px; color: #a98; }
+
+  /* platforms */
+  .plats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 30px; }
+  .plat { background: rgba(255,255,255,.75); border: 1px solid #fff; border-radius: 999px; padding: 6px 15px; font-size: 13px; font-weight: 500; color: #5a3e38; }
+
+  /* sections */
+  section { padding: 50px 0; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  h2 .n { color: var(--red); }
+  .lead { color: var(--gray); margin-bottom: 26px; }
+
+  /* steps */
+  .step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px dashed #eee; }
+  .step:last-child { border-bottom: none; }
+  .step .idx { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--red); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .step .body { flex: 1; }
+  .step .t { font-weight: 600; }
+  .step .d { color: var(--gray); font-size: 14px; margin-top: 2px; }
+  code { background: #f4f4f5; border-radius: 5px; padding: 1px 7px; font-family: "SF Mono", Menlo, monospace; font-size: 13px; color: #d4380d; }
+
+  /* features */
+  .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .feat .f { background: #fafafa; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .feat .f .ft { font-weight: 600; margin-bottom: 3px; }
+  .feat .f .fd { font-size: 13px; color: var(--gray); }
+
+  .callout { background: #FFF7E6; border: 1px solid #FFE1B3; border-radius: 12px; padding: 16px 18px; font-size: 14px; color: #96622a; margin-top: 24px; }
+
+  footer { text-align: center; padding: 36px 0 46px; color: #aaa; font-size: 13px; }
+  footer a { color: var(--red); text-decoration: none; }
+
+  @media (max-width: 560px) { h1 { font-size: 32px; } .feat { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="wrap">
+      <div class="logo">📌</div>
+      <h1>待会再看</h1>
+      <p class="sub">自动同步你在各平台的<em>收藏与点赞</em>，攒成一份「待会再看」清单 —— 专治"刷到就收藏，收藏就吃灰"。</p>
+      <a class="dl" href="https://github.com/wumaohua233/daihuizaikan/archive/refs/heads/main.zip">⬇ 下载插件（ZIP）</a>
+      <span class="dl-note">免费开源 · 纯本地 · 不上传任何数据</span>
+      <div class="plats">
+        <span class="plat">小红书</span><span class="plat">抖音</span><span class="plat">YouTube</span>
+        <span class="plat">X</span><span class="plat">TikTok</span><span class="plat">Instagram</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <h2><span class="n">3 步</span>安装</h2>
+      <p class="lead">Chrome 非商店扩展需要「开发者模式」加载，一次装好，之后自动用。</p>
+      <div class="step"><div class="idx">1</div><div class="body"><div class="t">下载并解压</div><div class="d">点上面的「下载插件」，把下载到的 zip 解压，得到一个文件夹。</div></div></div>
+      <div class="step"><div class="idx">2</div><div class="body"><div class="t">打开扩展页，开「开发者模式」</div><div class="d">Chrome 地址栏输入 <code>chrome://extensions</code> 回车，打开右上角的「开发者模式」开关。</div></div></div>
+      <div class="step"><div class="idx">3</div><div class="body"><div class="t">加载已解压的扩展程序</div><div class="d">点「加载已解压的扩展程序」，选中第 1 步解压出的文件夹 —— 装好了。</div></div></div>
+      <div class="step"><div class="idx">✓</div><div class="body"><div class="t">开始用</div><div class="d">在浏览器登录你要追的平台网页版，点插件图标 →「同步」。</div></div></div>
+      <div class="callout">💡 每次重启 Chrome 可能提示「要停用开发者模式扩展吗」，点<b>保留/取消</b>别停用即可。这是 Chrome 对非商店扩展的常规提醒。</div>
+    </section>
+
+    <section>
+      <h2>它能做什么</h2>
+      <p class="lead">6 个平台的收藏/点赞，后台悄悄同步，攒成一份待看清单。</p>
+      <div class="feat">
+        <div class="f"><div class="ft">🔔 后台自动同步</div><div class="fd">定时检查各平台新收藏，角标 + 通知提醒，不用你手动翻。</div></div>
+        <div class="f"><div class="ft">🎯 按平台单独同步</div><div class="fd">同步按钮带下拉，可只同步某个平台，并显示各自上次同步时间。</div></div>
+        <div class="f"><div class="ft">📤 一键导出 CSV</div><div class="fd">整个清单导成表格，Excel 直接打开，来源/标题/链接一应俱全。</div></div>
+        <div class="f"><div class="ft">🔒 纯本地不上传</div><div class="fd">所有数据只存你自己浏览器，抓的是你自己账号的收藏，不经服务器。</div></div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    开源于 <a href="https://github.com/wumaohua233/daihuizaikan">GitHub</a> · GPL-3.0 · 个人玩具项目，仅供学习交流
+  </footer>
+</body>
+</html>
