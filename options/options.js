@@ -1,0 +1,79 @@
+// options：检测间隔设置与数据重置。
+
+import * as store from "../lib/store.js";
+
+const $ = (id) => document.getElementById(id);
+
+function showMsg(text, ok) {
+  const el = $("msg");
+  el.textContent = text;
+  el.className = ok ? "ok" : "err";
+  setTimeout(() => { el.textContent = ""; }, 6000);
+}
+
+const PLATFORM_NAMES = { xhs: "小红书", douyin: "抖音", youtube: "YouTube", x: "X", tiktok: "TikTok", instagram: "Instagram" };
+
+// 按平台分组渲染数据源开关；勾选状态来自 settings.sources
+function renderSources(sources) {
+  const groups = {};
+  for (const [key, meta] of Object.entries(store.SOURCES)) {
+    (groups[meta.platform] = groups[meta.platform] || []).push([key, meta]);
+  }
+  let html = "";
+  for (const [plat, list] of Object.entries(groups)) {
+    const items = list
+      .map(([key, meta]) => {
+        const short = meta.label.replace(PLATFORM_NAMES[plat] || "", "").trim() || meta.label;
+        return `<label class="src-item"><input type="checkbox" data-source="${key}"${sources[key] ? " checked" : ""}> ${short}</label>`;
+      })
+      .join("");
+    html += `<div class="src-group"><span class="src-plat">${PLATFORM_NAMES[plat] || plat}</span><div class="src-items">${items}</div></div>`;
+  }
+  $("sources").innerHTML = html;
+}
+
+async function load() {
+  const s = await store.getSettings();
+  renderSources(s.sources);
+  const mins = Math.max(1, s.intervalMinutes || 180);
+  if (mins % 1440 === 0) {
+    $("intervalValue").value = mins / 1440;
+    $("intervalUnit").value = "1440";
+  } else if (mins % 60 === 0) {
+    $("intervalValue").value = mins / 60;
+    $("intervalUnit").value = "60";
+  } else {
+    $("intervalValue").value = mins;
+    $("intervalUnit").value = "1";
+  }
+}
+
+$("btn-save").addEventListener("click", async () => {
+  const s = await store.getSettings();
+  const sources = {};
+  document.querySelectorAll("#sources input[data-source]").forEach((cb) => {
+    sources[cb.dataset.source] = cb.checked;
+  });
+  s.sources = sources;
+  const raw = parseFloat($("intervalValue").value);
+  const unit = parseInt($("intervalUnit").value, 10) || 60;
+  let mins = Number.isFinite(raw) && raw > 0 ? raw * unit : 180;
+  let note = "已保存";
+  if (mins < 0.5) {
+    mins = 0.5; // Chrome alarms 最小周期 30 秒
+    note = "已保存（Chrome 限制最短 0.5 分钟，已自动调整）";
+  }
+  s.intervalMinutes = mins;
+  delete s.intervalHours; // 清掉旧字段
+  await store.saveSettings(s);
+  await chrome.runtime.sendMessage({ type: "RESET_ALARM" });
+  showMsg(note, true);
+});
+
+$("btn-clear").addEventListener("click", async () => {
+  if (!confirm("确定清空全部清单与已读记录？下次检测将重新全量导入。")) return;
+  await chrome.runtime.sendMessage({ type: "CLEAR_ALL" });
+  showMsg("已清空，点插件图标里的「同步」重新导入", true);
+});
+
+load();

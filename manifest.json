@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "待会再看",
+  "version": "0.1.0",
+  "description": "自动同步小红书/抖音/YouTube/X/TikTok/Instagram 的收藏与点赞新增，提醒你还有哪些收藏了没看。",
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    },
+    "default_title": "待会再看"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["tabs", "storage", "notifications", "alarms", "scripting", "cookies", "declarativeNetRequest"],
+  "host_permissions": [
+    "https://www.xiaohongshu.com/*",
+    "https://www.douyin.com/*",
+    "https://www.youtube.com/*",
+    "https://x.com/*",
+    "https://www.tiktok.com/*",
+    "https://www.instagram.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.xiaohongshu.com/*"],
+      "js": ["content/xhs.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.douyin.com/*"],
+      "js": ["content/dyHook.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.douyin.com/*"],
+      "js": ["content/douyin.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
